@@ -242,7 +242,6 @@ for (var i = 0; i < 4; i++) {
       }
   }
 
-
   var Drop = function() {
     this.geometry = new THREE.BoxGeometry(.1, .1, .1);
     // Randomly choose between white and blue color
@@ -283,6 +282,42 @@ for (var i = 0; i < 4; i++) {
     renderer.render( scene, camera );
   }
   render();
+
+
+  if ('xr' in navigator) {
+    // Create a button to enter VR mode
+    var vrButton = document.createElement('button');
+    vrButton.textContent = 'VR NOT SUPPORTED';
+    vrButton.style.position = 'fixed'; // Use fixed position for consistent positioning
+    vrButton.style.bottom = '20px';
+    vrButton.style.left = '50%'; // Set left to 50% to center horizontally
+    vrButton.style.transform = 'translateX(-50%)'; // Adjust for half of the button's width
+    vrButton.style.textAlign = 'center';
+    vrButton.style.padding = '10px 20px'; // Increase padding for a bigger button
+    vrButton.style.fontSize = '16px'; // Adjust font size
+    vrButton.style.borderRadius = '10px'; // Apply border radius for rounded corners
+    vrButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Set background color with transparency
+    vrButton.style.color = '#ffffff'; // Set text color to white
+    vrButton.style.border = 'none'; // Remove border
+    vrButton.style.cursor = 'pointer'; // Change cursor on hover
+    document.body.appendChild(vrButton);
+
+    vrButton.addEventListener('click', function() {
+        // Request to enter VR mode
+        navigator.xr.requestDevice().then(function(device) {
+            // Use the device to create a VR session
+            return device.requestSession({ mode: 'immersive-vr' });
+        }).then(function(session) {
+            // Enter VR mode
+            renderer.xr.setSession(session);
+        });
+    });
+} else {
+    // WebXR not supported, display a message or fallback content
+    console.log('WebXR not supported');
+}
+
+
 }
 
 function onWindowResize() {
