@@ -3,7 +3,7 @@ function init(){
   var Colors = {
     cyan: 0x248079,
     brown: 0xA98F78,
-    brownDark: 0x9A6169,
+    redWood: 0x8C4734,
     green: 0x136F0C,
     greenLight: 0x17940D,
     blue:0x6BC6FF
@@ -101,7 +101,7 @@ for (var i = 0; i < 4; i++) {
     this.z = z;
 
     // Trunk
-    var material_trunk = new THREE.MeshLambertMaterial({ color: Colors.brownDark });
+    var material_trunk = new THREE.MeshLambertMaterial({ color: Colors.redWood });
     var geometry_trunk = new THREE.BoxGeometry(0.15, 0.15, 0.15);
     var trunk = new THREE.Mesh(geometry_trunk, material_trunk);
     trunk.position.set(this.x, 0.275, this.z);
