@@ -7,3 +7,39 @@ html, body {
   padding: 0;
   overflow:hidden;
 }
+
+/* Add custom styles for the "Join UCSC!" text */
+.join-ucsc {
+  font-family: 'Luckiest Guy', cursive; /* Use the Luckiest Guy font */
+  font-size: 48px; /* Adjust the font size */
+  color: #0f090f; /* Set the text color */
+  position: absolute; /* Position the text absolutely */
+  top: 60px; /* Position the text 20px from the top */
+  left: 50%; /* Position the text at 50% from the left */
+  transform: translateX(-50%); /* Center the text horizontally */
+  text-align: center; /* Center-align the text */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: moveUpDown 1s infinite alternate; /* Apply the animation */
+}
+
+/* Define the animation */
+@keyframes moveUpDown {
+  0% {
+    transform: translate(-50%, -50%) translateY(0); /* Initial position */
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(-20px); /* Move the text up by 20px */
+  }
+}
+
+
+.additional-text {
+  font-family: monospace; /* Use monospaced font */
+  font-size: 16px; /* Adjust the font size */
+  color: #000; /* Set the text color */
+  position: absolute; /* Position the text absolutely */
+  top: 80px; /* Position the text below the "Join UCSC!" text */
+  left: 50%; /* Position the text at 50% from the left */
+  transform: translateX(-50%); /* Center the text horizontally */
+  text-align: center; /* Center-align the text */
+}

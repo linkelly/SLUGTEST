@@ -268,6 +268,8 @@ rail_h2.castShadow = true;
 customizeShadow(rail_h2,.2);
 scene.add( rail_h2 );
 
+
+
 var Drop=function(){
   this.geometry = new THREE.BoxGeometry(.1, .1, .1 );
   this.drop= new THREE.Mesh( this.geometry, material_river );
