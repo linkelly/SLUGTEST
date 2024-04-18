@@ -157,14 +157,24 @@ for (var i=0;i<6;i++){
 // Create an instance of the OBJLoader
 var objLoader = new THREE.OBJLoader();
 objLoader.load('slug.obj', function(object) {
+  // Inside the OBJLoader load callback function
+  console.log('Slug object loaded');
   object.traverse(function(child) {
-    if (child instanceof THREE.Mesh) {
-      child.material = new THREE.MeshBasicMaterial({ color: 'yellow' });
-      child.castShadow = true;
-      child.receiveShadow = true;
-      child.name = 'BananaSlug';
-    }
+      if (child instanceof THREE.Mesh) {
+          child.material = new THREE.MeshBasicMaterial({ color: 'yellow' });
+          child.castShadow = true;
+          child.receiveShadow = true;
+          child.name = 'BananaSlug';
+
+          console.log('Adding event listener to the slug mesh:', child);
+          
+          child.addEventListener('click', function() {
+              console.log('Clicked on the slug');
+              window.location.href = 'https://www.google.com';
+          });
+      }
   });
+
   var scaleFactor = 0.1; // Adjust the scale factor as needed
   object.scale.set(scaleFactor, scaleFactor, scaleFactor);
   object.position.set(-0.3, 0.2, 0);
@@ -174,6 +184,47 @@ objLoader.load('slug.obj', function(object) {
 );
 
 
+// Create a raycaster
+var raycaster = new THREE.Raycaster();
+
+// Listen for mouse move events
+document.addEventListener('mousemove', onMouseMove, false);
+document.addEventListener('click', onMouseClick, false);
+
+function onMouseMove(event) {
+    // Calculate mouse position in normalized device coordinates
+    var mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    var mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Update the raycaster's position
+    raycaster.setFromCamera({ x: mouseX, y: mouseY }, camera);
+}
+
+function onMouseClick(event) {
+    // Calculate mouse position in normalized device coordinates
+    var mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+    var mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Update the raycaster's position
+    raycaster.setFromCamera({ x: mouseX, y: mouseY }, camera);
+
+    // Check for intersections
+    var intersects = raycaster.intersectObjects(scene.children, true);
+
+    // Iterate through intersected objects
+    for (var i = 0; i < intersects.length; i++) {
+        var intersectedObject = intersects[i].object;
+
+        // Check if the intersected object is the slug mesh
+        if (intersectedObject.name === 'BananaSlug') {
+            // Redirect to google.com when slug is clicked
+            console.log('Clicked on the slug');
+            // window.location.href = 'https://www.ucsc.edu';
+            window.open('https://www.ucsc.edu', '_blank');
+            return; // Exit the loop after handling the click event
+        }
+    }
+}
 
 
 
