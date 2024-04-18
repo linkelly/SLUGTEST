@@ -165,6 +165,10 @@ objLoader.load('slug.obj', function(object) {
       child.name = 'BananaSlug';
     }
   });
+  var scaleFactor = 0.1; // Adjust the scale factor as needed
+  object.scale.set(scaleFactor, scaleFactor, scaleFactor);
+  object.position.set(-0.3, 0.2, 0);
+  object.rotation.x = -Math.PI / 2;
   scene.add(object);
 }
 );
